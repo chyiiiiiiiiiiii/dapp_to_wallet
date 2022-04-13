@@ -1,5 +1,6 @@
 import 'package:dart_web3/dart_web3.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,6 +34,10 @@ class _HomePageState extends State<HomePage> {
   late Web3Client web3client;
   late StreamChicken2Contract contract;
 
+  final TextEditingController fromAddressEditController = TextEditingController();
+  final TextEditingController toAddressEditController = TextEditingController();
+  final TextEditingController tokenIdEditController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +51,8 @@ class _HomePageState extends State<HomePage> {
 
       initWeb3Client();
       initContract();
+      fromAddressEditController.text = walletConnectHelper.getEthereumCredentials().getEthereumAddress().toString();
+      toAddressEditController.text = '0x3D7BAD4D04eE46280E29B5149EE1EAa0d5Ff649F'.toLowerCase();
     }
   }
 
@@ -53,6 +60,7 @@ class _HomePageState extends State<HomePage> {
     walletConnectHelper.dispose();
     isConnectWallet = false;
     publicWalletAddress = '';
+    tokenIdEditController.text = '';
     setState(() {});
   }
 
@@ -80,41 +88,65 @@ class _HomePageState extends State<HomePage> {
 
   /// transfer nft to specific user
   Future<void> transferNFT() async {
-    // help users navigating to Metamask app for pressing button
-    await launch(Web3Wallet.metamask.universalLink, forceSafariVC: false);
-    // transfer
-    final WalletConnectEthereumCredentials credentials = walletConnectHelper.getEthereumCredentials();
     try {
-      final String transferResult = await contract.safeTransferFrom(
-        credentials.getEthereumAddress(),
-        EthereumAddress.fromHex('0xA8831A1bCB54A4a2627BaF58b10Cd3352B2ae6BB'),
-        BigInt.from(3),
-        credentials: credentials,
-        transaction: Transaction(
-          from: credentials.getEthereumAddress(),
-          to: EthereumAddress.fromHex('0xA8831A1bCB54A4a2627BaF58b10Cd3352B2ae6BB'),
-        ),
-      );
-      Fluttertoast.showToast(msg: 'Transfer successfully\n$transferResult');
+      String fromString = fromAddressEditController.text;
+      String toString = toAddressEditController.text;
+      String tokenIdString = tokenIdEditController.text;
+      if (fromString.isEmpty || toString.isEmpty) {
+        Fluttertoast.showToast(msg: 'Please input address');
+        return;
+      } else if (tokenIdString.isEmpty) {
+        Fluttertoast.showToast(msg: 'Please input tokenId');
+        return;
+      }
+
+      EthereumAddress fromAddress = EthereumAddress.fromHex(fromString);
+      EthereumAddress toAddress = EthereumAddress.fromHex(toString);
+      int tokenId = int.parse(tokenIdString);
+
+      // help users navigating to Metamask app for pressing button
+      await launch(Web3Wallet.metamask.universalLink, forceSafariVC: false);
+      // transfer
+      final WalletConnectEthereumCredentials credentials = walletConnectHelper.getEthereumCredentials();
+      try {
+        final String transferResult = await contract.safeTransferFrom(
+          fromAddress,
+          toAddress,
+          BigInt.from(tokenId),
+          credentials: credentials,
+          transaction: Transaction(
+            from: fromAddress,
+            to: toAddress,
+          ),
+        );
+        Fluttertoast.showToast(msg: 'Transfer successfully\n$transferResult');
+      } catch (e) {
+        Fluttertoast.showToast(msg: 'Transfer failed');
+      }
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Transfer failed');
+      Fluttertoast.showToast(msg: "transferNFT() - failure - $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Demo'),
-        actions: [
-          if (isConnectWallet)
-            IconButton(
-              icon: const Icon(Icons.exit_to_app_rounded),
-              onPressed: () => disconnectWallet(),
-            ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Demo'),
+          actions: [
+            if (isConnectWallet)
+              IconButton(
+                icon: const Icon(Icons.exit_to_app_rounded),
+                onPressed: () => disconnectWallet(),
+              ),
+          ],
+        ),
+        body: !isConnectWallet ? _buildDisconnectView() : _buildConnectedView(),
       ),
-      body: !isConnectWallet ? _buildDisconnectView() : _buildConnectedView(),
     );
   }
 
@@ -169,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => getContractName(),
+                  onPressed: () => getContractOwnerAddress(),
                   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange)),
                   child: const Text(
                     'Get owner address',
@@ -178,9 +210,25 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Column(
                   children: [
-                    TextField(),
+                    MyTextField(
+                      textEditingController: fromAddressEditController,
+                      hint: 'from address',
+                      inputBorder: const OutlineInputBorder(),
+                    ),
+                    MyTextField(
+                      textEditingController: toAddressEditController,
+                      hint: 'to address',
+                      inputBorder: const OutlineInputBorder(),
+                      keyboardType: TextInputType.text,
+                    ),
+                    MyTextField(
+                      textEditingController: tokenIdEditController,
+                      hint: 'token id (#1)',
+                      inputBorder: const OutlineInputBorder(),
+                      keyboardType: TextInputType.number,
+                    ),
                     ElevatedButton(
-                      onPressed: () => getContractName(),
+                      onPressed: () => transferNFT(),
                       style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange)),
                       child: const Text(
                         'Transfer NFT',
@@ -194,6 +242,60 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class MyTextField extends StatelessWidget {
+  final String? hint;
+  final TextStyle? hintStyle;
+  final int? maxLines;
+  final bool autoFocus;
+  final bool obscureText;
+  final InputBorder? inputBorder;
+  final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
+  final List<TextInputFormatter>? textInputFormatter;
+  final TextEditingController textEditingController;
+  final FocusNode? focusNode;
+  final Function()? onComplete;
+
+  const MyTextField({
+    Key? key,
+    this.hint,
+    this.hintStyle,
+    this.maxLines,
+    this.autoFocus = false,
+    this.obscureText = false,
+    this.inputBorder,
+    this.keyboardType,
+    this.textInputAction = TextInputAction.done,
+    this.textInputFormatter,
+    required this.textEditingController,
+    this.focusNode,
+    this.onComplete,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      style: const TextStyle(fontSize: 16.0),
+      keyboardType: keyboardType,
+      maxLines: maxLines,
+      minLines: 1,
+      autofocus: autoFocus,
+      obscureText: obscureText,
+      cursorColor: Colors.brown,
+      decoration: InputDecoration(
+        hintText: hint,
+        hintStyle: hintStyle,
+        border: inputBorder,
+      ),
+      inputFormatters: textInputFormatter,
+      textInputAction: textInputAction,
+      controller: textEditingController,
+      focusNode: focusNode,
+      onEditingComplete: onComplete,
     );
   }
 }
