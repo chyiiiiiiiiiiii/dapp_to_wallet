@@ -46,9 +46,12 @@ class _HomePageState extends State<HomePage> {
   void connectWallet() async {
     isConnectWallet = await walletConnectHelper.initSession();
     if (isConnectWallet) {
-      publicWalletAddress = walletConnectHelper.accounts.first;
-      setState(() {});
+      // update ui
+      setState(() {
+        publicWalletAddress = walletConnectHelper.accounts.first;
+      });
 
+      // init
       initWeb3Client();
       initContract();
       fromAddressEditController.text = walletConnectHelper.getEthereumCredentials().getEthereumAddress().toString();
@@ -69,6 +72,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void initContract() {
+    // use contract(StreamChicken2) address
     final EthereumAddress contractAddress = EthereumAddress.fromHex('0xa1e767940e8fb953bbd8972149d2185071b86063');
     // use Rinkeby(test-chain), chain id is '4'
     contract = StreamChicken2Contract(address: contractAddress, client: web3client, chainId: 4);
@@ -89,6 +93,7 @@ class _HomePageState extends State<HomePage> {
   /// transfer nft to specific user
   Future<void> transferNFT() async {
     try {
+      // check input value string
       String fromString = fromAddressEditController.text;
       String toString = toAddressEditController.text;
       String tokenIdString = tokenIdEditController.text;
@@ -100,12 +105,14 @@ class _HomePageState extends State<HomePage> {
         return;
       }
 
+      // covert to correct type
       EthereumAddress fromAddress = EthereumAddress.fromHex(fromString);
       EthereumAddress toAddress = EthereumAddress.fromHex(toString);
       int tokenId = int.parse(tokenIdString);
 
       // help users navigating to Metamask app for pressing button
       await launch(Web3Wallet.metamask.universalLink, forceSafariVC: false);
+
       // transfer
       final WalletConnectEthereumCredentials credentials = walletConnectHelper.getEthereumCredentials();
       try {
@@ -121,7 +128,7 @@ class _HomePageState extends State<HomePage> {
         );
         Fluttertoast.showToast(msg: 'Transfer successfully\n$transferResult');
       } catch (e) {
-        Fluttertoast.showToast(msg: 'Transfer failed');
+        Fluttertoast.showToast(msg: 'Transfer failed - $e');
       }
     } catch (e) {
       Fluttertoast.showToast(msg: "transferNFT() - failure - $e");
