@@ -1,16 +1,23 @@
-# web3_wallet
+# DApp to Wallet
 
-A new Flutter project.
+![GitHub](https://img.shields.io/github/license/chyiiiiiiiiiiii/dapp_to_wallet?color=orange&style=flat-square)
 
-## Getting Started
+-------------------
+## Function Implement 
+- [x] Use Deeplink navigating to Metamask app, and allow accessing wallet data from outside app
+- [x] Use WalletConnect to get Credentials
+- [x] Use Credentials to excute contract operation
 
-This project is a starting point for a Flutter application.
+## Packages
+- url_launcher
+- walletconnect_dart
+- dart_web3
 
-A few resources to get you started if this is your first Flutter project:
+## Reference
+- [metamask-mobile](https://githubhot.com/repo/MetaMask/metamask-mobile/issues/3735)
+- [public_address_wallet](https://pub.dev/packages/public_address_wallet)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 關於我
+- Medium：[Yii Chen](https://ab20803.medium.com/)
+- Youtube：[Yii](https://www.youtube.com/user/a22601807/videos)
+- Email：<ab20803@gmail.com>
