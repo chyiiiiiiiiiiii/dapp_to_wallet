@@ -1,6 +1,5 @@
 import 'package:dart_web3/dart_web3.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,6 +9,7 @@ import '../helper/wallet_connect_helper.dart';
 import '../model/app_info.dart';
 import '../model/web3_wallet.dart';
 import '../wallect_connect/wallet_connect_ethereum_credentials.dart';
+import '../widget/my_textfield.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
       // init
       initWeb3Client();
       initContract();
-      fromAddressEditController.text = walletConnectHelper.getEthereumCredentials().getEthereumAddress().toString();
+      fromAddressEditController.text  = walletConnectHelper.getEthereumCredentials().getEthereumAddress().toString();
       toAddressEditController.text = '0x3D7BAD4D04eE46280E29B5149EE1EAa0d5Ff649F'.toLowerCase();
     }
   }
@@ -249,60 +249,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class MyTextField extends StatelessWidget {
-  final String? hint;
-  final TextStyle? hintStyle;
-  final int? maxLines;
-  final bool autoFocus;
-  final bool obscureText;
-  final InputBorder? inputBorder;
-  final TextInputType? keyboardType;
-  final TextInputAction? textInputAction;
-  final List<TextInputFormatter>? textInputFormatter;
-  final TextEditingController textEditingController;
-  final FocusNode? focusNode;
-  final Function()? onComplete;
-
-  const MyTextField({
-    Key? key,
-    this.hint,
-    this.hintStyle,
-    this.maxLines,
-    this.autoFocus = false,
-    this.obscureText = false,
-    this.inputBorder,
-    this.keyboardType,
-    this.textInputAction = TextInputAction.done,
-    this.textInputFormatter,
-    required this.textEditingController,
-    this.focusNode,
-    this.onComplete,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      style: const TextStyle(fontSize: 16.0),
-      keyboardType: keyboardType,
-      maxLines: maxLines,
-      minLines: 1,
-      autofocus: autoFocus,
-      obscureText: obscureText,
-      cursorColor: Colors.brown,
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: hintStyle,
-        border: inputBorder,
-      ),
-      inputFormatters: textInputFormatter,
-      textInputAction: textInputAction,
-      controller: textEditingController,
-      focusNode: focusNode,
-      onEditingComplete: onComplete,
     );
   }
 }
