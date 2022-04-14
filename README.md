@@ -1,8 +1,5 @@
 # DApp to Wallet
 
-![GitHub](https://img.shields.io/github/license/chyiiiiiiiiiiii/dapp_to_wallet?color=orange&style=flat-square)
-
--------------------
 ## Function Implement 
 - [x] Use Deeplink navigating to Metamask app, and allow accessing wallet data from outside app
 - [x] Use WalletConnect to get Credentials
