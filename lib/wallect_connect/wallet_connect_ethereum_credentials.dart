@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:dart_web3/crypto.dart';
-import 'package:dart_web3/dart_web3.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
+import 'package:web3dart/crypto.dart';
+import 'package:web3dart/web3dart.dart';
 
 class WalletConnectEthereumCredentials extends CustomTransactionSender {
   WalletConnectEthereumCredentials({required this.provider});

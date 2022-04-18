@@ -1,6 +1,6 @@
-import 'package:dart_web3/dart_web3.dart';
 import 'package:http/http.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
+import 'package:web3dart/web3dart.dart';
 
 import 'wallet_connect_ethereum_credentials.dart';
 

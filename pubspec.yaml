@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
   url_launcher: ^6.0.20
   walletconnect_dart: ^0.0.8
-  dart_web3: ^0.0.3
+  web3dart: ^2.3.5
   fluttertoast: ^8.0.9
 dev_dependencies:
   flutter_lints: ^1.0.0

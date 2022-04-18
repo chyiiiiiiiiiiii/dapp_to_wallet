@@ -1,25 +1,22 @@
 // Generated code, do not modify. Run `build_runner build` to re-generate!
 // @dart=2.12
-import 'package:dart_web3/dart_web3.dart' as _i1;
 import 'dart:typed_data' as _i2;
+
+import 'package:web3dart/web3dart.dart' as _i1;
 
 final _contractAbi = _i1.ContractAbi.fromJson(
     '[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"approved","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"uint256[]","name":"_tokenList","type":"uint256[]"}],"name":"checkOwnerOfTokenList","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"string","name":"uri","type":"string"}],"name":"safeMint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"bool","name":"approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]',
     'Stream_chicken_2');
 
 class StreamChicken2Contract extends _i1.GeneratedContract {
-  StreamChicken2Contract(
-      {required _i1.EthereumAddress address,
-      required _i1.Web3Client client,
-      int? chainId})
+  StreamChicken2Contract({required _i1.EthereumAddress address, required _i1.Web3Client client, int? chainId})
       : super(_i1.DeployedContract(_contractAbi, address), client, chainId);
 
   /// The optional [transaction] parameter can be used to override parameters
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
   Future<String> approve(_i1.EthereumAddress to, BigInt tokenId,
-      {required _i1.Credentials credentials,
-      _i1.Transaction? transaction}) async {
+      {required _i1.Credentials credentials, _i1.Transaction? transaction}) async {
     final function = self.abi.functions[1];
     assert(checkSignature(function, '095ea7b3'));
     final params = [to, tokenId];
@@ -29,8 +26,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<BigInt> balanceOf(_i1.EthereumAddress owner,
-      {_i1.BlockNum? atBlock}) async {
+  Future<BigInt> balanceOf(_i1.EthereumAddress owner, {_i1.BlockNum? atBlock}) async {
     final function = self.abi.functions[2];
     assert(checkSignature(function, '70a08231'));
     final params = [owner];
@@ -41,8 +37,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<bool> checkOwnerOfTokenList(
-      _i1.EthereumAddress owner, List<BigInt> _tokenList,
+  Future<bool> checkOwnerOfTokenList(_i1.EthereumAddress owner, List<BigInt> _tokenList,
       {_i1.BlockNum? atBlock}) async {
     final function = self.abi.functions[3];
     assert(checkSignature(function, 'dcfd284c'));
@@ -54,8 +49,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<_i1.EthereumAddress> getApproved(BigInt tokenId,
-      {_i1.BlockNum? atBlock}) async {
+  Future<_i1.EthereumAddress> getApproved(BigInt tokenId, {_i1.BlockNum? atBlock}) async {
     final function = self.abi.functions[4];
     assert(checkSignature(function, '081812fc'));
     final params = [tokenId];
@@ -66,8 +60,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<bool> isApprovedForAll(
-      _i1.EthereumAddress owner, _i1.EthereumAddress operator,
+  Future<bool> isApprovedForAll(_i1.EthereumAddress owner, _i1.EthereumAddress operator,
       {_i1.BlockNum? atBlock}) async {
     final function = self.abi.functions[5];
     assert(checkSignature(function, 'e985e9c5'));
@@ -101,8 +94,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<_i1.EthereumAddress> ownerOf(BigInt tokenId,
-      {_i1.BlockNum? atBlock}) async {
+  Future<_i1.EthereumAddress> ownerOf(BigInt tokenId, {_i1.BlockNum? atBlock}) async {
     final function = self.abi.functions[8];
     assert(checkSignature(function, '6352211e'));
     final params = [tokenId];
@@ -113,9 +105,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [transaction] parameter can be used to override parameters
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
-  Future<String> renounceOwnership(
-      {required _i1.Credentials credentials,
-      _i1.Transaction? transaction}) async {
+  Future<String> renounceOwnership({required _i1.Credentials credentials, _i1.Transaction? transaction}) async {
     final function = self.abi.functions[9];
     assert(checkSignature(function, '715018a6'));
     final params = [];
@@ -126,8 +116,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
   Future<String> safeMint(_i1.EthereumAddress to, String uri,
-      {required _i1.Credentials credentials,
-      _i1.Transaction? transaction}) async {
+      {required _i1.Credentials credentials, _i1.Transaction? transaction}) async {
     final function = self.abi.functions[10];
     assert(checkSignature(function, 'd204c45e'));
     final params = [to, uri];
@@ -137,10 +126,8 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [transaction] parameter can be used to override parameters
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
-  Future<String> safeTransferFrom(
-      _i1.EthereumAddress from, _i1.EthereumAddress to, BigInt tokenId,
-      {required _i1.Credentials credentials,
-      _i1.Transaction? transaction}) async {
+  Future<String> safeTransferFrom(_i1.EthereumAddress from, _i1.EthereumAddress to, BigInt tokenId,
+      {required _i1.Credentials credentials, _i1.Transaction? transaction}) async {
     final function = self.abi.functions[11];
     assert(checkSignature(function, '42842e0e'));
     final params = [from, to, tokenId];
@@ -150,10 +137,9 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [transaction] parameter can be used to override parameters
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
-  Future<String> safeTransferFrom$2(_i1.EthereumAddress from,
-      _i1.EthereumAddress to, BigInt tokenId, _i2.Uint8List _data,
-      {required _i1.Credentials credentials,
-      _i1.Transaction? transaction}) async {
+  Future<String> safeTransferFrom$2(
+      _i1.EthereumAddress from, _i1.EthereumAddress to, BigInt tokenId, _i2.Uint8List _data,
+      {required _i1.Credentials credentials, _i1.Transaction? transaction}) async {
     final function = self.abi.functions[12];
     assert(checkSignature(function, 'b88d4fde'));
     final params = [from, to, tokenId, _data];
@@ -164,8 +150,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
   Future<String> setApprovalForAll(_i1.EthereumAddress operator, bool approved,
-      {required _i1.Credentials credentials,
-      _i1.Transaction? transaction}) async {
+      {required _i1.Credentials credentials, _i1.Transaction? transaction}) async {
     final function = self.abi.functions[13];
     assert(checkSignature(function, 'a22cb465'));
     final params = [operator, approved];
@@ -175,8 +160,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [atBlock] parameter can be used to view historical data. When
   /// set, the function will be evaluated in the specified block. By default, the
   /// latest on-chain block will be used.
-  Future<bool> supportsInterface(_i2.Uint8List interfaceId,
-      {_i1.BlockNum? atBlock}) async {
+  Future<bool> supportsInterface(_i2.Uint8List interfaceId, {_i1.BlockNum? atBlock}) async {
     final function = self.abi.functions[14];
     assert(checkSignature(function, '01ffc9a7'));
     final params = [interfaceId];
@@ -209,10 +193,8 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// The optional [transaction] parameter can be used to override parameters
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
-  Future<String> transferFrom(
-      _i1.EthereumAddress from, _i1.EthereumAddress to, BigInt tokenId,
-      {required _i1.Credentials credentials,
-      _i1.Transaction? transaction}) async {
+  Future<String> transferFrom(_i1.EthereumAddress from, _i1.EthereumAddress to, BigInt tokenId,
+      {required _i1.Credentials credentials, _i1.Transaction? transaction}) async {
     final function = self.abi.functions[17];
     assert(checkSignature(function, '23b872dd'));
     final params = [from, to, tokenId];
@@ -223,8 +205,7 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   /// like the gas price, nonce and max gas. The `data` and `to` fields will be
   /// set by the contract.
   Future<String> transferOwnership(_i1.EthereumAddress newOwner,
-      {required _i1.Credentials credentials,
-      _i1.Transaction? transaction}) async {
+      {required _i1.Credentials credentials, _i1.Transaction? transaction}) async {
     final function = self.abi.functions[18];
     assert(checkSignature(function, 'f2fde38b'));
     final params = [newOwner];
@@ -232,11 +213,9 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   }
 
   /// Returns a live stream of all Approval events emitted by this contract.
-  Stream<Approval> approvalEvents(
-      {_i1.BlockNum? fromBlock, _i1.BlockNum? toBlock}) {
+  Stream<Approval> approvalEvents({_i1.BlockNum? fromBlock, _i1.BlockNum? toBlock}) {
     final event = self.event('Approval');
-    final filter = _i1.FilterOptions.events(
-        contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
+    final filter = _i1.FilterOptions.events(contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
     return client.events(filter).map((_i1.FilterEvent result) {
       final decoded = event.decodeResults(result.topics!, result.data!);
       return Approval(decoded);
@@ -244,11 +223,9 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   }
 
   /// Returns a live stream of all ApprovalForAll events emitted by this contract.
-  Stream<ApprovalForAll> approvalForAllEvents(
-      {_i1.BlockNum? fromBlock, _i1.BlockNum? toBlock}) {
+  Stream<ApprovalForAll> approvalForAllEvents({_i1.BlockNum? fromBlock, _i1.BlockNum? toBlock}) {
     final event = self.event('ApprovalForAll');
-    final filter = _i1.FilterOptions.events(
-        contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
+    final filter = _i1.FilterOptions.events(contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
     return client.events(filter).map((_i1.FilterEvent result) {
       final decoded = event.decodeResults(result.topics!, result.data!);
       return ApprovalForAll(decoded);
@@ -256,11 +233,9 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   }
 
   /// Returns a live stream of all OwnershipTransferred events emitted by this contract.
-  Stream<OwnershipTransferred> ownershipTransferredEvents(
-      {_i1.BlockNum? fromBlock, _i1.BlockNum? toBlock}) {
+  Stream<OwnershipTransferred> ownershipTransferredEvents({_i1.BlockNum? fromBlock, _i1.BlockNum? toBlock}) {
     final event = self.event('OwnershipTransferred');
-    final filter = _i1.FilterOptions.events(
-        contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
+    final filter = _i1.FilterOptions.events(contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
     return client.events(filter).map((_i1.FilterEvent result) {
       final decoded = event.decodeResults(result.topics!, result.data!);
       return OwnershipTransferred(decoded);
@@ -268,11 +243,9 @@ class StreamChicken2Contract extends _i1.GeneratedContract {
   }
 
   /// Returns a live stream of all Transfer events emitted by this contract.
-  Stream<Transfer> transferEvents(
-      {_i1.BlockNum? fromBlock, _i1.BlockNum? toBlock}) {
+  Stream<Transfer> transferEvents({_i1.BlockNum? fromBlock, _i1.BlockNum? toBlock}) {
     final event = self.event('Transfer');
-    final filter = _i1.FilterOptions.events(
-        contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
+    final filter = _i1.FilterOptions.events(contract: self, event: event, fromBlock: fromBlock, toBlock: toBlock);
     return client.events(filter).map((_i1.FilterEvent result) {
       final decoded = event.decodeResults(result.topics!, result.data!);
       return Transfer(decoded);

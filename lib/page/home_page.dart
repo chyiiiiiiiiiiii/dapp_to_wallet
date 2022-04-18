@@ -1,8 +1,8 @@
-import 'package:dart_web3/dart_web3.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:web3dart/web3dart.dart';
 
 import '../abi/stream_chicken_2.g.dart';
 import '../helper/wallet_connect_helper.dart';
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
       // init
       initWeb3Client();
       initContract();
-      fromAddressEditController.text  = walletConnectHelper.getEthereumCredentials().getEthereumAddress().toString();
+      fromAddressEditController.text = walletConnectHelper.getEthereumCredentials().getEthereumAddress().toString();
       toAddressEditController.text = '0x3D7BAD4D04eE46280E29B5149EE1EAa0d5Ff649F'.toLowerCase();
     }
   }
