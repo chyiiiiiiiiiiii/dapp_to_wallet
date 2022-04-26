@@ -7,7 +7,7 @@ import 'package:web3dart/web3dart.dart';
 import '../abi/stream_chicken_2.g.dart';
 import '../helper/wallet_connect_helper.dart';
 import '../model/app_info.dart';
-import '../model/web3_wallet.dart';
+import '../model/crypto_wallet.dart';
 import '../wallect_connect/wallet_connect_ethereum_credentials.dart';
 import '../widget/my_textfield.dart';
 
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   final String ethRinkebyTestnetEndpoints = 'https://rinkeby.infura.io/v3/e3090e47c3624aa3aa126fa7297bff9b';
 
   final WalletConnectHelper walletConnectHelper = WalletConnectHelper(
-    AppInfo(
+    appInfo: AppInfo(
       name: "Mobile App",
       url: "https://example.mobile.com",
     ),
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
       int tokenId = int.parse(tokenIdString);
 
       // help users navigating to Metamask app for pressing button
-      await launch(Web3Wallet.metamask.universalLink, forceSafariVC: false);
+      await launch(CryptoWallet.metamask.universalLink, forceSafariVC: false);
 
       // transfer
       final WalletConnectEthereumCredentials credentials = walletConnectHelper.getEthereumCredentials();

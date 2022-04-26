@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import '../model/web3_wallet.dart';
+import '../model/crypto_wallet.dart';
 
 class DeeplinkUtil {
   static const wcBridge = 'wc?uri=';
 
   static String getDeeplink({
-    required Web3Wallet wallet,
+    required CryptoWallet wallet,
     required String uri,
   }) {
     if (Platform.isIOS) {
