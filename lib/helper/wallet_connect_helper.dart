@@ -14,8 +14,8 @@ import '../wallect_connect/wallet_connect_ethereum_credentials.dart';
 class WalletConnectHelper {
   static const String ethRinkebyTestnetEndpoints = 'https://rinkeby.infura.io/v3/e3090e47c3624aa3aa126fa7297bff9b';
 
-  // mobile app info
   final String? bridge;
+  /// mobile app info
   final AppInfo appInfo;
 
   late WalletConnect connector;
@@ -24,7 +24,10 @@ class WalletConnectHelper {
   List<String> accounts = [];
 
   /// Connector using brigde 'https://bridge.walletconnect.org' by default.
-  WalletConnectHelper({this.bridge, required this.appInfo}) {
+  WalletConnectHelper({
+    this.bridge,
+    required this.appInfo,
+  }) {
     connector = getWalletConnect();
   }
 
@@ -94,7 +97,6 @@ class WalletConnectHelper {
     }
   }
 
-  /// 取得錢包地址
   WalletConnectEthereumCredentials getEthereumCredentials() {
     EthereumWalletConnectProvider provider = EthereumWalletConnectProvider(connector);
     WalletConnectEthereumCredentials credentials = WalletConnectEthereumCredentials(provider: provider);
