@@ -7,6 +7,7 @@
 - [x] Use Deeplink navigating to Metamask app, and allow accessing wallet data from outside app
 - [x] Use WalletConnect to get Credentials
 - [x] Use Credentials to excute contract operation
+- [x] Transfer NFT (ERC721 Contract)
 
 ## Packages
 - [walletconnect_dart](walletconnect_dart)
