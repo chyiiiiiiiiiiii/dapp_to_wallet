@@ -28,8 +28,6 @@ class _HomePageState extends State<HomePage> {
     ),
   );
 
-  bool isConnectWallet = false;
-  String publicWalletAddress = "";
 
   late Web3Client web3client;
   late StreamChicken2Contract contract;
@@ -38,6 +36,9 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController toAddressEditController = TextEditingController();
   final TextEditingController tokenIdEditController = TextEditingController();
 
+  bool isConnectWallet = false;
+  String publicWalletAddress = "";
+  
   @override
   void initState() {
     super.initState();
@@ -152,12 +153,12 @@ class _HomePageState extends State<HomePage> {
               ),
           ],
         ),
-        body: !isConnectWallet ? _buildDisconnectView() : _buildConnectedView(),
+        body: !isConnectWallet ? _buildDisconnectedView() : _buildConnectedView(),
       ),
     );
   }
 
-  Widget _buildDisconnectView() {
+  Widget _buildDisconnectedView() {
     return Center(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Image.asset(
