@@ -1,3 +1,4 @@
+import 'package:eip55/eip55.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -28,7 +29,6 @@ class _HomePageState extends State<HomePage> {
     ),
   );
 
-
   late Web3Client web3client;
   late StreamChicken2Contract contract;
 
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   bool isConnectWallet = false;
   String publicWalletAddress = "";
-  
+
   @override
   void initState() {
     super.initState();
@@ -47,16 +47,17 @@ class _HomePageState extends State<HomePage> {
   void connectWallet() async {
     isConnectWallet = await walletConnectHelper.initSession();
     if (isConnectWallet) {
-      // update ui
-      setState(() {
-        publicWalletAddress = walletConnectHelper.accounts.first;
-      });
+      publicWalletAddress = walletConnectHelper.getEthereumCredentials().getEthereumAddress().toString();
+      publicWalletAddress = toEIP55Address(publicWalletAddress);
 
-      // init
+      // Init
       initWeb3Client();
       initContract();
-      fromAddressEditController.text = walletConnectHelper.getEthereumCredentials().getEthereumAddress().toString();
-      toAddressEditController.text = '0x3D7BAD4D04eE46280E29B5149EE1EAa0d5Ff649F'.toLowerCase();
+      fromAddressEditController.text = publicWalletAddress;
+      toAddressEditController.text = '0x3D7BAD4D04eE46280E29B5149EE1EAa0d5Ff649F';
+
+      // Update ui
+      setState(() {});
     }
   }
 

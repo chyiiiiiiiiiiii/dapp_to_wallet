@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:eip55/eip55.dart';
 import 'package:flutter/rendering.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
@@ -15,6 +16,7 @@ class WalletConnectHelper {
   static const String ethRinkebyTestnetEndpoints = 'https://rinkeby.infura.io/v3/e3090e47c3624aa3aa126fa7297bff9b';
 
   final String? bridge;
+
   /// mobile app info
   final AppInfo appInfo;
 
@@ -90,7 +92,8 @@ class WalletConnectHelper {
     }
 
     if (accounts.isNotEmpty) {
-      final String address = accounts.first;
+      String address = accounts.first;
+      address = toEIP55Address(address);
       return address;
     } else {
       throw 'Unexpected exception';
